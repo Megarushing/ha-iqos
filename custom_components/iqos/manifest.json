@@ -1,0 +1,17 @@
+{
+  "codeowners": ["@megarushing"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/megarushing/ha-iqos",
+  "domain": "iqos",
+  "iot_class": "local_push",
+  "name": "Iqos",
+  "bluetooth": [
+    {
+      "manufacturer_id": 547,
+      "connectable": true
+    }
+  ],
+  "requirements": [],
+  "version": "1.0.0"
+}
