@@ -141,7 +141,7 @@ class IQOSBLE:
         return unregister_callback
 
     async def initialise(self) -> None:
-        await self._reconnect()
+        await self._ensure_connected()
         _LOGGER.debug("%s: Subscribe to notifications; RSSI: %s", self.name, self.rssi)
         if self._client is not None:
             await self._client.start_notify(
