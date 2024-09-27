@@ -141,7 +141,7 @@ class IQOSBLE:
         return unregister_callback
 
     async def initialise(self) -> None:
-        await self._ensure_connected()
+        await self._reconnect()
         _LOGGER.debug("%s: Subscribe to notifications; RSSI: %s", self.name, self.rssi)
         if self._client is not None:
             await self._client.start_notify(
@@ -182,8 +182,8 @@ class IQOSBLE:
             await self._ensure_connected()
             _LOGGER.debug("ensured connection - initialising")
             await self.initialise()
-        except BleakNotFoundError:
-            _LOGGER.debug("failed to ensure connection - backing off")
+        except (BleakNotFoundError, BleakError) as error:
+            _LOGGER.debug("failed to ensure connection - backing off: %s", error)
             await asyncio.sleep(BLEAK_BACKOFF_TIME)
             _LOGGER.debug("reconnecting again")
             asyncio.create_task(self._reconnect())
